@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>漢字変換</title>
+    <script type="text/javascript" src="sample.js?var=1"></script>
+    <link rel="stylesheet" type="text/css" href="design.css">
+</head>
+
+<body>
+    <p1>漢字変換</p1>
+    <form name="form">
+        <textarea type="text" name="txtb" id="textid" placeholder="ここに入力" rows="10" cols="50"></textarea><br>
+        <input type="button" value="変換" onclick="tbox1()">
+    </form>
+
+    <p>漢字</p>
+    <textarea id="kanji"  rows="5" cols="50"></textarea><br>
+    <p>ひらがな</p>
+    <textarea id="hiragana"  rows="5" cols="50"></textarea><br>
+    <p>カタカナ</p>
+    <textarea id="katakana"  rows="5" cols="50"></textarea><br>
+    <p>その他(アルファベット・特殊記号等)</p>
+    <textarea id="sonota"  rows="5" cols="50"></textarea><br>
+    <p id="analysis"></p>
+</body>
+
+</html>
