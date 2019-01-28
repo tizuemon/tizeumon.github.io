@@ -9,13 +9,20 @@ function tbox1() {
   //numx = parseInt(x);
   //numx = numx + 1;
 
-  //x.split("");
-
   var kanji = "";
   var hiragana = "";
   var katakana = "";
   var sonota = "";
   var count = 0;
+
+  var hindo = Array(96);
+  var saihin = "";
+  var tmp = "";
+  var max = 0;
+
+  for (var i = 0; i < 96; i++){
+    hindo[i] = 0;
+  }
 
   for(var i = 0; i < x.length; i++){
     var unicode = x[i].charCodeAt(0);
@@ -28,6 +35,8 @@ function tbox1() {
     	count++;
     }
     else if( unicode>=0x3040 && unicode<=0x309f ){ //ひらがな
+      tmp = String(unicode);
+      hindo[parseInt(tmp)-12352]++;
     	hiragana += x[i];
     	count++;
     }
@@ -59,10 +68,35 @@ function tbox1() {
   var katakana_ratio = Math.floor(katakana.length/count*1000)/10;
   var sonota_ratio = Math.floor(sonota.length/count*1000)/10;
 
+  var tmp_h = 0;
+
+  for (var i = 0; i < 96; i++){
+    for(var j = i;j < 96; j++){
+      if(hindo[i]<hindo[j]){
+        tmp_h = hindo[i];
+        hindo[i] = hindo[j];
+        hindo[j] = tmp_h;
+      }
+    }
+  }
+
+  for(var i = 0; i < 5; i++){
+    hindo[i]+=12352;
+  }
+
+  //max += 12352;
+
   var bunseki =  "文字数 " + count + "字 <br>" +
   		 "漢字数 " + kanji.length + "字 比率 " + kanji_ratio + "%" + "<br>" +
   		 "ひらがな数 " + hiragana.length + "字 比率 " + hiragana_ratio + "%" + "<br>" +
   		 "カタカナ数 " + katakana.length + "字 比率 " + katakana_ratio + "%" + "<br>" +
-  		 "その他数 " + sonota.length + "字 比率 " + sonota_ratio + "%" ;
+       "その他数 " + sonota.length + "字 比率 " + sonota_ratio + "%" + "<br>" + 
+       "最頻値(ひらがな)ランキング" + "<br>" +
+       "1位「" + String.fromCharCode( "0x" + hindo[0].toString(16)) + "」" + (hindo[0] - 12352) + "<br>" +
+       "2位「" + String.fromCharCode( "0x" + hindo[1].toString(16)) + "」" + (hindo[1] - 12352) + "<br>" + 
+       "3位「" + String.fromCharCode( "0x" + hindo[2].toString(16)) + "」" + (hindo[2] - 12352) + "<br>" + 
+       "4位「" + String.fromCharCode( "0x" + hindo[3].toString(16)) + "」" + (hindo[3] - 12352) + "<br>" + 
+       "5位「" + String.fromCharCode( "0x" + hindo[4].toString(16)) + "」" + (hindo[4] - 12352) + "<br>" ;
+
   document.getElementById('analysis').innerHTML = bunseki;
 };
